@@ -1,85 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Outer shadow drop for Mochi body -->
+    <!-- Shadow drop for Mochi body -->
     <path
-        android:fillColor="#25000000"
-        android:pathData="M28,62 C28,42 80,42 80,62 C80,82 28,82 28,62 Z" />
+        android:fillColor="#30000000"
+        android:pathData="M26,64 C26,44 82,44 82,64 C82,84 26,84 26,64 Z" />
 
     <!-- Left Ear Outer -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M31,43 L23,23 L43,35 Z" />
+    <path android:pathData="M31,43 L21,21 L43,35 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="21"
+                android:startY="21"
+                android:endX="43"
+                android:endY="43"
+                android:type="linear">
+                <item android:color="#F472B6" android:offset="0.0" />
+                <item android:color="#C084FC" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
     <!-- Left Ear Inner -->
     <path
         android:fillColor="#FF8A9E"
-        android:pathData="M32,41 L26,27 L40,35 Z" />
+        android:pathData="M32,41 L25,25 L40,35 Z" />
 
     <!-- Right Ear Outer -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M77,43 L85,23 L65,35 Z" />
+    <path android:pathData="M77,43 L87,21 L65,35 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="65"
+                android:startY="21"
+                android:endX="87"
+                android:endY="43"
+                android:type="linear">
+                <item android:color="#F472B6" android:offset="0.0" />
+                <item android:color="#C084FC" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
     <!-- Right Ear Inner -->
     <path
         android:fillColor="#FF8A9E"
-        android:pathData="M76,41 L82,27 L68,35 Z" />
+        android:pathData="M76,41 L83,25 L68,35 Z" />
 
-    <!-- Main Mochi Pet Body -->
+    <!-- Main Mochi Pet Body (In-game Pink to Lavender Gradient) -->
+    <path android:pathData="M25,60 C25,36 83,36 83,60 C83,82 25,82 25,60 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="25"
+                android:startY="36"
+                android:endX="83"
+                android:endY="82"
+                android:type="linear">
+                <item android:color="#F472B6" android:offset="0.0" />
+                <item android:color="#C084FC" android:offset="0.5" />
+                <item android:color="#818CF8" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Belly Highlight -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M26,60 C26,38 82,38 82,60 C82,80 26,80 26,60 Z" />
+        android:fillColor="#33FFFFFF"
+        android:pathData="M32,62 C32,46 76,46 76,62 C76,76 32,76 32,62 Z" />
 
     <!-- Rosy Blush Cheeks -->
     <path
-        android:fillColor="#FFB3C1"
-        android:pathData="M36,61 A4,4 0 1,1 36,61.01 Z" />
+        android:fillColor="#F43F5E"
+        android:pathData="M35,62 A4.5,4.5 0 1,1 35,62.01 Z" />
     <path
-        android:fillColor="#FFB3C1"
-        android:pathData="M72,61 A4,4 0 1,1 72,61.01 Z" />
+        android:fillColor="#F43F5E"
+        android:pathData="M73,62 A4.5,4.5 0 1,1 73,62.01 Z" />
 
-    <!-- Left Eye -->
+    <!-- Left Eye (Big Joyful Eye) -->
     <path
-        android:fillColor="#2D3748"
-        android:pathData="M43,53 A4.5,4.5 0 1,1 43,53.01 Z" />
-    <!-- Left Eye Highlight -->
+        android:fillColor="#0F172A"
+        android:pathData="M43,53 A5,5 0 1,1 43,53.01 Z" />
+    <!-- Left Eye Sparkle Highlight -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M41.5,51.5 A1.5,1.5 0 1,1 41.5,51.51 Z" />
+        android:pathData="M41.5,51 A2,2 0 1,1 41.5,51.01 Z" />
 
-    <!-- Right Eye -->
+    <!-- Right Eye (Big Joyful Eye) -->
     <path
-        android:fillColor="#2D3748"
-        android:pathData="M65,53 A4.5,4.5 0 1,1 65,53.01 Z" />
-    <!-- Right Eye Highlight -->
+        android:fillColor="#0F172A"
+        android:pathData="M65,53 A5,5 0 1,1 65,53.01 Z" />
+    <!-- Right Eye Sparkle Highlight -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M63.5,51.5 A1.5,1.5 0 1,1 63.5,51.51 Z" />
+        android:pathData="M63.5,51 A2,2 0 1,1 63.5,51.01 Z" />
 
-    <!-- Nose & Cat Smile Mouth -->
+    <!-- Cat Smile Mouth (Cat 'w' mouth) -->
     <path
-        android:fillColor="#FF758F"
-        android:pathData="M54,57 L52.5,55 L55.5,55 Z" />
-    <path
-        android:strokeColor="#2D3748"
-        android:strokeWidth="1.8"
+        android:strokeColor="#0F172A"
+        android:strokeWidth="2"
         android:strokeLineCap="round"
         android:fillColor="#00000000"
-        android:pathData="M50,59 Q52,62 54,59 Q56,62 58,59" />
+        android:pathData="M48,59 Q51,63 54,59 Q57,63 60,59" />
 
-    <!-- Paws -->
+    <!-- Little Paws -->
     <path
-        android:fillColor="#FFF5F7"
-        android:pathData="M42,75 C42,71 48,71 48,75 C48,78 42,78 42,75 Z" />
+        android:fillColor="#FCE7F3"
+        android:pathData="M40,76 C40,72 46,72 46,76 C46,79 40,79 40,76 Z" />
     <path
-        android:fillColor="#FFF5F7"
-        android:pathData="M60,75 C60,71 66,71 66,75 C66,78 60,78 60,75 Z" />
+        android:fillColor="#FCE7F3"
+        android:pathData="M62,76 C62,72 68,72 68,76 C68,79 62,79 62,76 Z" />
 
-    <!-- Floating Heart Badge above Mochi -->
+    <!-- Golden Crown accessory above Mochi -->
     <path
-        android:fillColor="#FF4757"
-        android:pathData="M54,26 C54,26 49,21 49,18 C49,15.5 51,14 53,15.5 C54,16.5 54,16.5 54,16.5 C54,16.5 54,16.5 55,15.5 C57,14 59,15.5 59,18 C59,21 54,26 54,26 Z" />
+        android:fillColor="#FBBF24"
+        android:pathData="M44,28 L48,34 L54,26 L60,34 L64,28 L62,37 L46,37 Z" />
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M54,28 A1.5,1.5 0 1,1 54,28.01 Z" />
 </vector>

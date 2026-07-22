@@ -179,51 +179,48 @@ fun ShopAndInventorySheet(
       Spacer(modifier = Modifier.height(10.dp))
 
       if (selectedTab == 0 || selectedTab == 1) {
-        // Search & Sort bar
-        Row(
-          modifier = Modifier.fillMaxWidth(),
-          verticalAlignment = Alignment.CenterVertically,
-          horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-          OutlinedTextField(
-            value = searchQuery,
-            onValueChange = onSearchQueryChanged,
-            placeholder = { Text("Search items...", fontSize = 12.sp) },
-            leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "Search", modifier = Modifier.size(18.dp)) },
-            modifier = Modifier
-              .weight(1f)
-              .height(48.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-              unfocusedContainerColor = Color(0xFFF8FAFC),
-              focusedContainerColor = Color.White,
-              unfocusedBorderColor = Color(0xFFE2E8F0),
-              focusedBorderColor = SleekPrimary
-            ),
-            singleLine = true
-          )
+        // Search bar (Full width on top row)
+        OutlinedTextField(
+          value = searchQuery,
+          onValueChange = onSearchQueryChanged,
+          placeholder = { Text("Search items...", fontSize = 13.sp) },
+          leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "Search", modifier = Modifier.size(18.dp)) },
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+          shape = RoundedCornerShape(16.dp),
+          colors = OutlinedTextFieldDefaults.colors(
+            unfocusedContainerColor = Color(0xFFF8FAFC),
+            focusedContainerColor = Color.White,
+            unfocusedBorderColor = Color(0xFFE2E8F0),
+            focusedBorderColor = SleekPrimary
+          ),
+          singleLine = true
+        )
 
-          // Sort selector chips
-          LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-          ) {
-            items(InventorySortOption.values()) { option ->
-              val isSelected = selectedSort == option
-              Box(
-                modifier = Modifier
-                  .clip(RoundedCornerShape(12.dp))
-                  .background(if (isSelected) SleekPrimary else Color(0xFFF1F5F9))
-                  .clickable { onSortOptionSelected(option) }
-                  .padding(horizontal = 8.dp, vertical = 10.dp),
-                contentAlignment = Alignment.Center
-              ) {
-                Text(
-                  text = "${option.icon} ${option.label}",
-                  fontSize = 11.sp,
-                  fontWeight = FontWeight.Bold,
-                  color = if (isSelected) Color.White else SleekTextMuted
-                )
-              }
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Sort selector chips (Row below search input)
+        LazyRow(
+          horizontalArrangement = Arrangement.spacedBy(6.dp),
+          modifier = Modifier.fillMaxWidth()
+        ) {
+          items(InventorySortOption.values()) { option ->
+            val isSelected = selectedSort == option
+            Box(
+              modifier = Modifier
+                .clip(RoundedCornerShape(12.dp))
+                .background(if (isSelected) SleekPrimary else Color(0xFFF1F5F9))
+                .clickable { onSortOptionSelected(option) }
+                .padding(horizontal = 10.dp, vertical = 7.dp),
+              contentAlignment = Alignment.Center
+            ) {
+              Text(
+                text = "${option.icon} ${option.label}",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = if (isSelected) Color.White else SleekTextMuted
+              )
             }
           }
         }
