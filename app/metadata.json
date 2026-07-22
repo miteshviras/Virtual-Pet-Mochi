@@ -1,0 +1,6 @@
+{
+  "name": "Mochi Pet",
+  "description": "A delightful virtual pet companion game with multi-room decoration, dress-up studio, arcade mini-games, and progression achievements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

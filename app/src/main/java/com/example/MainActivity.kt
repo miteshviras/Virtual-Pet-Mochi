@@ -121,6 +121,13 @@ fun MochiAppScreen(
         onDismiss = { viewModel.dismissAchievementBanner() }
       )
 
+      // Particle Overlay for Celebrations
+      com.example.ui.components.ParticleEffectOverlay(
+        triggerKey = levelUpDialogState ?: achievementBanner?.id,
+        type = if (levelUpDialogState != null) com.example.ui.components.ParticleType.CONFETTI else com.example.ui.components.ParticleType.SPARKLES,
+        particleCount = 25
+      )
+
       // 2. Top Status Bar
       SleekTopBar(
         level = petState.level,
