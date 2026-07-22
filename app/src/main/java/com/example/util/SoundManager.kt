@@ -98,4 +98,44 @@ object SoundManager {
   fun playConfirmSound() {
     toneGenerator?.startTone(ToneGenerator.TONE_DTMF_S, 200)
   }
+
+  fun playPlacementSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_DTMF_A, 140)
+  }
+
+  fun playMoveSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_PROP_BEEP, 60)
+  }
+
+  fun playRotateSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_DTMF_2, 80)
+  }
+
+  fun playCancelSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_PROP_NACK, 100)
+  }
+
+  fun playStartGameSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_DTMF_D, 200)
+  }
+
+  fun playPauseSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_PROP_PROMPT, 100)
+  }
+
+  fun playResumeSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_PROP_BEEP, 100)
+  }
+
+  fun playComboSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_DTMF_A, 150)
+  }
+
+  fun playVictorySound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_DTMF_S, 350)
+  }
+
+  fun playDefeatSound() {
+    toneGenerator?.startTone(ToneGenerator.TONE_PROP_NACK, 300)
+  }
 }

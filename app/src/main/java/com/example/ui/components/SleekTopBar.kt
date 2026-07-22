@@ -44,6 +44,11 @@ fun SleekTopBar(
   onOpenShop: () -> Unit,
   onOpenDailyRewards: () -> Unit = {},
   onOpenCustomization: () -> Unit = {},
+  onOpenRoomDecoration: () -> Unit = {},
+  onOpenPlayerProfile: () -> Unit = {},
+  onOpenAchievements: () -> Unit = {},
+  onOpenDailyTasks: () -> Unit = {},
+  onOpenCollections: () -> Unit = {},
   modifier: Modifier = Modifier
 ) {
   val xpProgress = (xp.toFloat() / maxXp.coerceAtLeast(1).toFloat()).coerceIn(0f, 1f)
@@ -52,49 +57,54 @@ fun SleekTopBar(
   Row(
     modifier = modifier
       .fillMaxWidth()
-      .padding(horizontal = 16.dp, vertical = 12.dp),
+      .padding(horizontal = 14.dp, vertical = 10.dp),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
   ) {
-    // Left: Level Badge & XP bar
+    // Left: Level Badge & XP bar (Clicking level badge opens Player Profile)
     Row(
       verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.Start
+      horizontalArrangement = Arrangement.Start,
+      modifier = Modifier
+        .clip(RoundedCornerShape(20.dp))
+        .clickable { onOpenPlayerProfile() }
+        .padding(end = 4.dp)
+        .testTag("player_level_badge_button")
     ) {
       Box(
         modifier = Modifier
-          .size(48.dp)
+          .size(44.dp)
           .shadow(6.dp, CircleShape)
           .clip(CircleShape)
           .background(SleekPrimary)
-          .border(4.dp, SleekPrimaryContainer, CircleShape),
+          .border(3.dp, SleekPrimaryContainer, CircleShape),
         contentAlignment = Alignment.Center
       ) {
         Text(
           text = "$level",
           color = Color.White,
-          fontSize = 20.sp,
+          fontSize = 18.sp,
           fontWeight = FontWeight.Bold
         )
       }
 
-      Spacer(modifier = Modifier.width(12.dp))
+      Spacer(modifier = Modifier.width(8.dp))
 
       Column {
         Text(
           text = "MOCHI EXPLORER",
-          fontSize = 11.sp,
+          fontSize = 10.sp,
           fontWeight = FontWeight.ExtraBold,
           color = SleekPrimary,
-          letterSpacing = 1.sp
+          letterSpacing = 0.8.sp
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(3.dp))
 
         Box(
           modifier = Modifier
-            .width(90.dp)
-            .height(8.dp)
+            .width(72.dp)
+            .height(7.dp)
             .clip(CircleShape)
             .background(Color(0xFFE2E8F0))
         ) {
@@ -109,11 +119,53 @@ fun SleekTopBar(
       }
     }
 
-    // Right: Dress-Up Studio, Daily Rewards & Coins Badge
+    // Right: Action icon triggers
     Row(
-      horizontalArrangement = Arrangement.spacedBy(6.dp),
+      horizontalArrangement = Arrangement.spacedBy(4.dp),
       verticalAlignment = Alignment.CenterVertically
     ) {
+      Box(
+        modifier = Modifier
+          .testTag("trophies_button")
+          .shadow(2.dp, CircleShape)
+          .clip(CircleShape)
+          .background(Color.White)
+          .border(1.dp, Color(0xFFF1F5F9), CircleShape)
+          .clickable { onOpenAchievements() }
+          .padding(horizontal = 8.dp, vertical = 7.dp),
+        contentAlignment = Alignment.Center
+      ) {
+        Text(text = "🏆", fontSize = 14.sp)
+      }
+
+      Box(
+        modifier = Modifier
+          .testTag("daily_tasks_button")
+          .shadow(2.dp, CircleShape)
+          .clip(CircleShape)
+          .background(Color.White)
+          .border(1.dp, Color(0xFFF1F5F9), CircleShape)
+          .clickable { onOpenDailyTasks() }
+          .padding(horizontal = 8.dp, vertical = 7.dp),
+        contentAlignment = Alignment.Center
+      ) {
+        Text(text = "📜", fontSize = 14.sp)
+      }
+
+      Box(
+        modifier = Modifier
+          .testTag("collections_button")
+          .shadow(2.dp, CircleShape)
+          .clip(CircleShape)
+          .background(Color.White)
+          .border(1.dp, Color(0xFFF1F5F9), CircleShape)
+          .clickable { onOpenCollections() }
+          .padding(horizontal = 8.dp, vertical = 7.dp),
+        contentAlignment = Alignment.Center
+      ) {
+        Text(text = "📚", fontSize = 14.sp)
+      }
+
       Box(
         modifier = Modifier
           .testTag("customization_studio_button")
@@ -122,24 +174,24 @@ fun SleekTopBar(
           .background(Color.White)
           .border(1.dp, Color(0xFFF1F5F9), CircleShape)
           .clickable { onOpenCustomization() }
-          .padding(horizontal = 10.dp, vertical = 8.dp),
+          .padding(horizontal = 8.dp, vertical = 7.dp),
         contentAlignment = Alignment.Center
       ) {
-        Text(text = "👗", fontSize = 16.sp)
+        Text(text = "👗", fontSize = 14.sp)
       }
 
       Box(
         modifier = Modifier
-          .testTag("daily_reward_button")
+          .testTag("room_decoration_button")
           .shadow(2.dp, CircleShape)
           .clip(CircleShape)
           .background(Color.White)
           .border(1.dp, Color(0xFFF1F5F9), CircleShape)
-          .clickable { onOpenDailyRewards() }
-          .padding(horizontal = 10.dp, vertical = 8.dp),
+          .clickable { onOpenRoomDecoration() }
+          .padding(horizontal = 8.dp, vertical = 7.dp),
         contentAlignment = Alignment.Center
       ) {
-        Text(text = "🎁", fontSize = 16.sp)
+        Text(text = "🛋️", fontSize = 14.sp)
       }
 
       Row(
@@ -150,18 +202,18 @@ fun SleekTopBar(
           .background(Color.White)
           .border(1.dp, Color(0xFFF1F5F9), CircleShape)
           .clickable { onOpenShop() }
-          .padding(horizontal = 10.dp, vertical = 8.dp),
+          .padding(horizontal = 8.dp, vertical = 7.dp),
         verticalAlignment = Alignment.CenterVertically
       ) {
         Text(
           text = "✨",
-          fontSize = 16.sp,
+          fontSize = 14.sp,
           color = CoinAmber
         )
-        Spacer(modifier = Modifier.width(4.dp))
+        Spacer(modifier = Modifier.width(2.dp))
         Text(
           text = String.format("%,d", coins),
-          fontSize = 13.sp,
+          fontSize = 11.sp,
           fontWeight = FontWeight.Black,
           color = SleekTextDark
         )

@@ -42,3 +42,21 @@
    - Modular 12-Slot Cosmetic Engine (`CosmeticSlot`, `CustomizationRegistry`) supporting real-time preview, equipping, unequipping, and state locking based on player level & item inventory ownership.
    - Layered Procedural Pet Canvas Rendering (`MochiPetView`) rendering skin color gradients, body patterns, eye styles/colors, mouth expressions, clothes (shirts, jackets, pants, shoes), and accessories (hats, glasses, hair, neck, back, hand, tail) across all pet emotions & squish animations.
    - Event-Driven Customization Pipeline (`OnCosmeticEquipped`, `OnCosmeticRemoved`, `OnAppearanceChanged`, `OnCustomizationSaved`) integrated with `SoundManager` audio cues and `SaveManager` / Room DB persistence.
+
+6. **Phase 7: Home Decoration & Furniture Placement System**:
+   - Modular Furniture Placement Engine (`PlacedFurniture`, `FurnitureCategory`, `RoomCustomizationRegistry`) with independent spatial configurations for Bedroom, Kitchen, Bathroom, Playroom, and Garden.
+   - Interactive Placement Studio (`RoomDecorationSheet` & `RoomViewport` Overlay) supporting real-time grid snapping, dragging, collision boundary constraints, rotation, item removal/inventory return, wallpaper changes, and flooring swaps.
+   - Decoupled Room Event System (`OnFurniturePlaced`, `OnFurnitureRemoved`, `OnFurnitureMoved`, `OnWallpaperChanged`, `OnFloorChanged`, `OnRoomReset`) integrated with `SoundManager` audio cues and Room Database persistence (v4).
+
+7. **Phase 8: Activity Hub & Mini-Game Framework**:
+   - Scalable Activity Hub (`ActivityHubSheet`) browsing 6 activity categories (Mini-Games, Pet Activities, Training, Educational, Seasonal Events, Special Challenges) with difficulty filters, level requirements, and high scores.
+   - Generic Mini-Game Framework & Session Engine (`ActivityFrameworkData`, `MiniGameFrameworkHost`) providing standardized game loop, HUD, combo multipliers, pause/resume, countdowns, stars (1-3), and victory/defeat results overlays.
+   - Decoupled Activity Event Pipeline (`GameStarted`, `GamePaused`, `GameResumed`, `GameCompleted`, `GameFailed`, `RewardGranted`, `HighScoreUpdated`) integrated with `EconomyManager`, `SoundManager` audio cues, and Room DB persistence (v5).
+
+8. **Phase 9: Player Progression & Meta Systems**:
+   - Player Level & Pet Friendship Progression Engine (`ProgressionData`, `ProgressionManager`) supporting XP levelling, pet growth, level-up celebration overlays, and reward payouts.
+   - Comprehensive Achievements & Tiers Engine (`AchievementData`, `AchievementsSheet`) tracking 12+ multi-tier achievements (Feeding, Games, Coins, Furniture, Customization, Care) with progress claim buttons and reward disbursements.
+   - Daily Quests & Tasks System (`DailyQuestData`, `DailyTasksSheet`) generating 5 dynamic daily quests with automatic midnight reset, progress bars, and reward claim states.
+   - Collections & Codex Compendium (`CollectionsSheet`) tracking percentage completion across 6 categories (Foods, Furniture, Accessories, Wallpapers, Mini-Games, Achievements).
+   - Player Profile & Lifetime Statistics Dashboard (`PlayerProfileSheet`) recording lifetime play time, total coins earned/spent, foods fed, games played, best scores, care actions, furniture placed, and customization count.
+   - Event-Driven Meta Progression Pipeline (`OnLevelUp`, `OnAchievementCompleted`, `OnDailyQuestClaimed`, `OnCollectionUnlocked`) integrated with `SoundManager` victory tones and Room DB persistence (v6).

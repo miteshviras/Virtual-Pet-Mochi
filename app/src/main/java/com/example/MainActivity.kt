@@ -70,9 +70,31 @@ fun MochiAppScreen(
   val hasClaimedDailyReward by viewModel.hasClaimedDailyReward.collectAsState()
   val showDailyRewardDialog by viewModel.showDailyRewardDialog.collectAsState()
 
+  val isDecorationMode by viewModel.isDecorationMode.collectAsState()
+  val placedFurnitureMap by viewModel.placedFurnitureMap.collectAsState()
+  val roomWallpapers by viewModel.roomWallpapers.collectAsState()
+  val roomFloors by viewModel.roomFloors.collectAsState()
+  val selectedPlacedFurniture by viewModel.selectedPlacedFurniture.collectAsState()
+
+  val highScoresMap by viewModel.highScoresMap.collectAsState()
+  val activeActivity by viewModel.activeActivity.collectAsState()
+  val gameSession by viewModel.gameSession.collectAsState()
+
+  // Phase 9 States
+  val achievementsMap by viewModel.achievementsMap.collectAsState()
+  val dailyQuests by viewModel.dailyQuests.collectAsState()
+  val unlockedCollections by viewModel.unlockedCollections.collectAsState()
+  val playerMetaStats by viewModel.playerMetaStats.collectAsState()
+  val levelUpDialogState by viewModel.levelUpDialogState.collectAsState()
+  val achievementBanner by viewModel.achievementUnlockedBanner.collectAsState()
+
   var showShopSheet by remember { mutableStateOf(false) }
   var showGameSheet by remember { mutableStateOf(false) }
   var showCustomizationSheet by remember { mutableStateOf(false) }
+  var showProfileSheet by remember { mutableStateOf(false) }
+  var showAchievementsSheet by remember { mutableStateOf(false) }
+  var showDailyTasksSheet by remember { mutableStateOf(false) }
+  var showCollectionsSheet by remember { mutableStateOf(false) }
 
   val derivedEmotion = viewModel.getDerivedEmotion()
 
@@ -93,7 +115,13 @@ fun MochiAppScreen(
         .statusBarsPadding()
         .background(SleekBg)
     ) {
-      // 1. Top Status Bar (Level, XP, Coins, Dress-Up, Daily Bonus)
+      // 1. Achievement Unlocked Banner overlay
+      com.example.ui.components.AchievementUnlockedBanner(
+        achievement = achievementBanner,
+        onDismiss = { viewModel.dismissAchievementBanner() }
+      )
+
+      // 2. Top Status Bar
       SleekTopBar(
         level = petState.level,
         xp = petState.xp,
@@ -101,7 +129,12 @@ fun MochiAppScreen(
         coins = petState.coins,
         onOpenShop = { showShopSheet = true },
         onOpenDailyRewards = { viewModel.setShowDailyRewardDialog(true) },
-        onOpenCustomization = { showCustomizationSheet = true }
+        onOpenCustomization = { showCustomizationSheet = true },
+        onOpenRoomDecoration = { viewModel.toggleDecorationMode(true) },
+        onOpenPlayerProfile = { showProfileSheet = true },
+        onOpenAchievements = { showAchievementsSheet = true },
+        onOpenDailyTasks = { showDailyTasksSheet = true },
+        onOpenCollections = { showCollectionsSheet = true }
       )
 
       // 2. Needs Dashboard
@@ -110,13 +143,18 @@ fun MochiAppScreen(
 
       Spacer(modifier = Modifier.height(12.dp))
 
-      // 3. Hero Room Viewport with Camera transitions, Interactive Props & Floating Stat Popups
+      // 3. Hero Room Viewport with Camera transitions, Interactive Props, Placed Furniture & Floating Stat Popups
       RoomViewport(
         pet = petState,
         currentRoom = currentRoom,
         emotion = derivedEmotion,
         notificationMsg = notificationMsg,
         popups = floatingPopups,
+        isDecorationMode = isDecorationMode,
+        placedFurnitureList = placedFurnitureMap[currentRoom] ?: emptyList(),
+        selectedPlacedFurniture = selectedPlacedFurniture,
+        onSelectPlacedFurniture = { f -> viewModel.selectPlacedFurniture(f) },
+        onMovePlacedFurniture = { id, x, y -> viewModel.moveFurniture(currentRoom, id, x, y) },
         onPetClick = { viewModel.playWithPet() },
         onPropInteract = { prop -> viewModel.interactWithProp(prop) },
         onRoomSwipe = { newRoom -> viewModel.changeRoom(newRoom) },
@@ -168,6 +206,24 @@ fun MochiAppScreen(
     }
 
     // Modal Bottom Sheets
+    if (isDecorationMode) {
+      com.example.ui.components.RoomDecorationSheet(
+        currentRoom = currentRoom,
+        masterInventory = masterInventory,
+        currentWallpaperId = roomWallpapers[currentRoom] ?: "wp_starry_night",
+        currentFloorId = roomFloors[currentRoom] ?: "fl_oak_wood",
+        selectedPlacedFurniture = selectedPlacedFurniture,
+        onPlaceFurniture = { item -> viewModel.placeFurniture(currentRoom, item) },
+        onChangeWallpaper = { wpId -> viewModel.changeWallpaper(currentRoom, wpId) },
+        onChangeFloor = { flId -> viewModel.changeFloor(currentRoom, flId) },
+        onRotateFurniture = { id -> viewModel.rotateFurniture(currentRoom, id) },
+        onRemoveFurniture = { id -> viewModel.removeFurniture(currentRoom, id) },
+        onResetRoom = { viewModel.resetRoomDecoration(currentRoom) },
+        onCloseSheet = { viewModel.toggleDecorationMode(false) }
+      )
+    }
+
+    // Modal Bottom Sheets
     if (showShopSheet) {
       ShopAndInventorySheet(
         coins = petState.coins,
@@ -200,18 +256,22 @@ fun MochiAppScreen(
     }
 
     if (showGameSheet) {
-      MiniGameHubSheet(
-        activeGameId = activeGameId,
+      com.example.ui.components.ActivityHubSheet(
+        playerLevel = petState.level,
+        highScoresMap = highScoresMap,
+        activeActivity = activeActivity,
+        gameSession = gameSession,
         onDismiss = {
           showGameSheet = false
-          viewModel.closeMiniGame()
+          viewModel.exitGameSession()
         },
-        onOpenGame = { gameId -> viewModel.openMiniGame(gameId) },
-        onGameWin = { coins, xp ->
-          viewModel.addXpAndCoins(xp, coins)
-          viewModel.closeMiniGame()
-          showGameSheet = false
-        }
+        onStartActivity = { actId, diff -> viewModel.startActivitySession(actId, diff) },
+        onPauseGame = { viewModel.pauseGameSession() },
+        onResumeGame = { viewModel.resumeGameSession() },
+        onRestartGame = { viewModel.restartGameSession() },
+        onExitGame = { viewModel.exitGameSession() },
+        onUpdateScore = { p, success -> viewModel.updateGameScore(p, success) },
+        onCompleteGame = { finalScore -> viewModel.completeGameSession(finalScore) }
       )
     }
 
@@ -227,6 +287,47 @@ fun MochiAppScreen(
         onUpdateAppearance = { category, optionId -> viewModel.updateAppearanceOption(category, optionId) },
         onResetAppearance = { viewModel.resetCustomizationAppearance() },
         onSaveCustomization = { newPet -> viewModel.saveCustomizationSettings(newPet) }
+      )
+    }
+
+    // Phase 9 Modals
+    if (showProfileSheet) {
+      com.example.ui.components.PlayerProfileSheet(
+        petState = petState,
+        metaStats = playerMetaStats,
+        onDismiss = { showProfileSheet = false }
+      )
+    }
+
+    if (showAchievementsSheet) {
+      com.example.ui.components.AchievementsSheet(
+        achievementsMap = achievementsMap,
+        onClaimReward = { id -> viewModel.claimAchievementReward(id) },
+        onDismiss = { showAchievementsSheet = false }
+      )
+    }
+
+    if (showDailyTasksSheet) {
+      com.example.ui.components.DailyTasksSheet(
+        dailyQuests = dailyQuests,
+        onClaimQuest = { id -> viewModel.claimDailyQuestReward(id) },
+        onDismiss = { showDailyTasksSheet = false }
+      )
+    }
+
+    if (showCollectionsSheet) {
+      com.example.ui.components.CollectionsSheet(
+        unlockedCollections = unlockedCollections,
+        masterInventory = masterInventory,
+        highScoresMap = highScoresMap,
+        onDismiss = { showCollectionsSheet = false }
+      )
+    }
+
+    levelUpDialogState?.let { lvl ->
+      com.example.ui.components.LevelUpCelebrationDialog(
+        newLevel = lvl,
+        onDismiss = { viewModel.dismissLevelUpDialog() }
       )
     }
   }
