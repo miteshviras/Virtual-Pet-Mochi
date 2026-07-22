@@ -75,23 +75,23 @@ fun DailyTasksSheet(
         Row(verticalAlignment = Alignment.CenterVertically) {
           Box(
             modifier = Modifier
-              .size(40.dp)
+              .size(42.dp)
               .clip(CircleShape)
               .background(Brush.linearGradient(listOf(Color(0xFF10B981), Color(0xFF06B6D4)))),
             contentAlignment = Alignment.Center
           ) {
-            Text("📜", fontSize = 20.sp)
+            Text("📜", fontSize = 22.sp)
           }
           Spacer(modifier = Modifier.width(10.dp))
           Column {
             Text(
-              text = "Daily Care Quests",
+              text = "Mochi's Daily Missions",
               fontSize = 20.sp,
               fontWeight = FontWeight.Bold,
               color = SleekTextDark
             )
             Text(
-              text = "Resets daily at midnight • Complete for bonus XP & Coins!",
+              text = "3 daily tasks from Mochi • Earn bonus Coins & XP! 🪙",
               fontSize = 11.sp,
               color = SleekTextMuted
             )
@@ -107,6 +107,50 @@ fun DailyTasksSheet(
             .testTag("close_daily_tasks")
         ) {
           Icon(Icons.Default.Close, contentDescription = "Close", tint = Color(0xFF64748B), modifier = Modifier.size(18.dp))
+        }
+      }
+
+      Spacer(modifier = Modifier.height(12.dp))
+
+      // Mochi Daily Banner
+      val totalCompleted = dailyQuests.count { it.isClaimed || it.currentProgress >= it.targetProgress }
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .clip(RoundedCornerShape(16.dp))
+          .background(Color(0xFFECFDF5))
+          .border(1.dp, Color(0xFFA7F3D0), RoundedCornerShape(16.dp))
+          .padding(12.dp)
+      ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+          Text("🐾", fontSize = 26.sp)
+          Spacer(modifier = Modifier.width(10.dp))
+          Column(modifier = Modifier.weight(1f)) {
+            Text(
+              text = "Mochi's Missions Progress",
+              fontSize = 12.sp,
+              fontWeight = FontWeight.Bold,
+              color = Color(0xFF065F46)
+            )
+            Text(
+              text = "$totalCompleted of ${dailyQuests.size} missions finished today!",
+              fontSize = 11.sp,
+              color = Color(0xFF047857)
+            )
+          }
+          Box(
+            modifier = Modifier
+              .clip(RoundedCornerShape(12.dp))
+              .background(Color(0xFF10B981))
+              .padding(horizontal = 10.dp, vertical = 4.dp)
+          ) {
+            Text(
+              text = "$totalCompleted/${dailyQuests.size} Done",
+              fontSize = 11.sp,
+              fontWeight = FontWeight.Black,
+              color = Color.White
+            )
+          }
         }
       }
 

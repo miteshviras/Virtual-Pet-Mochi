@@ -106,7 +106,7 @@ All core game logic resides within `MochiViewModel.kt`:
 - **Automatic Auto-Save**: Room DB updates whenever stats, inventory, or room configurations change.
 - **Progression Engine**:
   - `addXpAndCoins()`: Increments XP, calculates level-ups, triggers celebratory modals, awards level bonuses.
-  - `recordCareAction()`, `recordCoinsEarned()`, `recordCoinsSpent()`, `recordFurniturePlaced()`, `recordCustomizationEquipped()`, `recordMiniGamePlayed()`: Automatically updates achievements, daily quest progress, and lifetime stats.
+  - `recordCareAction()`, `recordCoinsEarned()`, `recordCoinsSpent()`, `recordFurniturePlaced()`, `recordCustomizationEquipped()`, `recordMiniGamePlayed()`: Automatically updates achievements, Mochi's 3 daily missions progress, and lifetime stats.
 - **Audio & Haptic Feedback**: Handled through `SoundManager.kt` and Compose `LocalHapticFeedback` / Android vibration.
 - **Cute Synthesized Pet Voice**: `SoundManager.kt` synthesizes real-time cute PCM voice audio (`PetVoiceType`: `CHIRP`, `GREETING`, `GIGGLE`, `PURR`, `YAWN`, `YUMMY`, `SAD`) via `AudioTrack` frequency sweeps and harmonic envelopes for pet taps, feeding, cuddling, sleeping, and care actions.
 

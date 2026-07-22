@@ -1515,7 +1515,8 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
 
     addXpAndCoins(xpGained = quest.rewardXp, coinsGained = quest.rewardCoins)
     com.example.util.SoundManager.playRewardSound()
-    triggerFloatingPopup("Quest Completed! +${quest.rewardCoins} Coins 📜", 0xFF10B981)
+    com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.GIGGLE)
+    triggerFloatingPopup("Mission Completed! +${quest.rewardCoins} Coins 📜", 0xFF10B981)
   }
 
   fun unlockCollectionItem(itemId: String) {

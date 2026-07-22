@@ -101,11 +101,9 @@ object MetaRegistry {
   )
 
   fun getDefaultDailyQuests(): List<DailyQuest> = listOf(
-    DailyQuest("dq_feed", "Hungry Mochi", "Feed Mochi 3 snacks", "🍎", DailyQuestType.FEED, 3, 0, 100, 40),
-    DailyQuest("dq_bath", "Bubble Time", "Give Mochi 1 bubble bath", "🧼", DailyQuestType.BATH, 1, 0, 80, 30),
-    DailyQuest("dq_play", "Arcade Star", "Play 2 mini-games", "🎮", DailyQuestType.PLAY, 2, 0, 120, 50),
-    DailyQuest("dq_coins", "Coin Collector", "Earn 200 coins", "💰", DailyQuestType.EARN_COINS, 200, 0, 150, 60),
-    DailyQuest("dq_decor", "Room Refresh", "Place or move 1 furniture item", "🛋️", DailyQuestType.DECORATE, 1, 0, 100, 40)
+    DailyQuest("dq_feed", "Yummy Meals", "Feed Mochi 2 delicious meals or snacks", "🍎", DailyQuestType.FEED, targetProgress = 2, currentProgress = 0, rewardCoins = 100, rewardXp = 40),
+    DailyQuest("dq_play", "Arcade Fun", "Play or win 1 mini-game in the Arcade", "🎮", DailyQuestType.PLAY, targetProgress = 1, currentProgress = 0, rewardCoins = 150, rewardXp = 50),
+    DailyQuest("dq_bath", "Sparkling Clean", "Give Mochi 1 warm bubble bath", "🧼", DailyQuestType.BATH, targetProgress = 1, currentProgress = 0, rewardCoins = 120, rewardXp = 45)
   )
 
   fun getCollectionCatalog(
