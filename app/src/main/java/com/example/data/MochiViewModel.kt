@@ -47,6 +47,9 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
   private val _showDailyRewardDialog = MutableStateFlow(false)
   val showDailyRewardDialog: StateFlow<Boolean> = _showDailyRewardDialog.asStateFlow()
 
+  private val _showGuideDialog = MutableStateFlow(false)
+  val showGuideDialog: StateFlow<Boolean> = _showGuideDialog.asStateFlow()
+
   private val _notificationMessage = MutableStateFlow<String?>("Time for a bath! 🧼")
   val notificationMessage: StateFlow<String?> = _notificationMessage.asStateFlow()
 
@@ -1613,13 +1616,24 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
     return jsonStr.split(",").toSet()
   }
 
+  fun setShowGuideDialog(show: Boolean) {
+    _showGuideDialog.value = show
+  }
+
   fun completeOnboarding(petName: String) {
     val cleanName = petName.trim().ifEmpty { "Mochi" }
     val updated = _petState.value.copy(
       name = cleanName,
+      level = 1,
+      xp = 0,
+      maxXp = 100,
+      coins = 0,
+      lifetimeCoinsEarned = 0,
+      lifetimeCoinsSpent = 0,
       isOnboardingCompleted = true
     )
     _petState.value = updated
+    _showGuideDialog.value = true
     viewModelScope.launch {
       dao.updatePetStats(updated)
     }

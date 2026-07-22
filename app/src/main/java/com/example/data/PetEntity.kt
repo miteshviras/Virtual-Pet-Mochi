@@ -7,16 +7,16 @@ import androidx.room.PrimaryKey
 data class PetEntity(
   @PrimaryKey val id: Int = 1,
   val name: String = "Mochi",
-  val level: Int = 12,
-  val xp: Int = 65,
+  val level: Int = 1,
+  val xp: Int = 0,
   val maxXp: Int = 100,
-  val coins: Int = 2450,
+  val coins: Int = 0,
   val hunger: Float = 85f,      // 0 - 100
-  val energy: Float = 42f,      // 0 - 100
-  val happiness: Float = 95f,   // 0 - 100
-  val cleanliness: Float = 20f, // 0 - 100
-  val health: Float = 90f,      // 0 - 100
-  val friendship: Float = 80f,  // 0 - 100
+  val energy: Float = 80f,      // 0 - 100
+  val happiness: Float = 90f,   // 0 - 100
+  val cleanliness: Float = 75f, // 0 - 100
+  val health: Float = 100f,     // 0 - 100
+  val friendship: Float = 50f,  // 0 - 100
   val equippedHat: String = "none",
   val equippedHair: String = "none",
   val equippedGlasses: String = "none",
@@ -50,8 +50,8 @@ data class PetEntity(
   val dailyQuestsJson: String = "",
   val lastDailyResetDate: String = "",
   val unlockedCollectionsJson: String = "",
-  val lifetimeCoinsEarned: Int = 2450,
-  val lifetimeCoinsSpent: Int = 1200,
+  val lifetimeCoinsEarned: Int = 0,
+  val lifetimeCoinsSpent: Int = 0,
   val totalFoodsFed: Int = 0,
   val totalBathsGiven: Int = 0,
   val totalCareActionsPerformed: Int = 0,

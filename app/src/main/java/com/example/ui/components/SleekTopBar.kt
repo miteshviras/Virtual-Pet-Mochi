@@ -58,6 +58,7 @@ fun SleekTopBar(
   onOpenAchievements: () -> Unit = {},
   onOpenDailyTasks: () -> Unit = {},
   onOpenCollections: () -> Unit = {},
+  onOpenGuide: () -> Unit = {},
   modifier: Modifier = Modifier
 ) {
   val xpProgress = (xp.toFloat() / maxXp.coerceAtLeast(1).toFloat()).coerceIn(0f, 1f)
@@ -319,6 +320,19 @@ fun SleekTopBar(
               }
             )
           }
+
+          // Full width Guide button
+          HubItemCard(
+            icon = "💡",
+            title = "How to Play Guide",
+            subtitle = "Pet Care & Mini-Game Tutorial",
+            tag = "how_to_play_guide_button",
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+              showActivityHub = false
+              onOpenGuide()
+            }
+          )
         }
       }
     }

@@ -69,6 +69,7 @@ fun MochiAppScreen(
   val dailyStreakDay by viewModel.dailyStreakDay.collectAsState()
   val hasClaimedDailyReward by viewModel.hasClaimedDailyReward.collectAsState()
   val showDailyRewardDialog by viewModel.showDailyRewardDialog.collectAsState()
+  val showGuideDialog by viewModel.showGuideDialog.collectAsState()
 
   val isDecorationMode by viewModel.isDecorationMode.collectAsState()
   val placedFurnitureMap by viewModel.placedFurnitureMap.collectAsState()
@@ -147,7 +148,8 @@ fun MochiAppScreen(
         onOpenPlayerProfile = { showProfileSheet = true },
         onOpenAchievements = { showAchievementsSheet = true },
         onOpenDailyTasks = { showDailyTasksSheet = true },
-        onOpenCollections = { showCollectionsSheet = true }
+        onOpenCollections = { showCollectionsSheet = true },
+        onOpenGuide = { viewModel.setShowGuideDialog(true) }
       )
 
       // 2. Needs Dashboard
@@ -334,6 +336,12 @@ fun MochiAppScreen(
         masterInventory = masterInventory,
         highScoresMap = highScoresMap,
         onDismiss = { showCollectionsSheet = false }
+      )
+    }
+
+    if (showGuideDialog) {
+      com.example.ui.components.HowToPlayGuideDialog(
+        onDismiss = { viewModel.setShowGuideDialog(false) }
       )
     }
 
