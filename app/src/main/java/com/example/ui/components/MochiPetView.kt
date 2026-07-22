@@ -560,17 +560,19 @@ fun MochiPetView(
       modifier = Modifier
         .align(Alignment.BottomCenter)
         .padding(bottom = 16.dp)
-        .shadow(4.dp, CircleShape)
-        .clip(CircleShape)
-        .background(Color(0xFF1E1B4B).copy(alpha = 0.75f))
-        .padding(horizontal = 16.dp, vertical = 6.dp)
+        .shadow(4.dp, RoundedCornerShape(20.dp))
+        .clip(RoundedCornerShape(20.dp))
+        .background(Color(0xFF1E1B4B).copy(alpha = 0.85f))
+        .padding(horizontal = 20.dp, vertical = 8.dp)
     ) {
       Text(
         text = room.displayName.uppercase(),
-        fontSize = 11.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Black,
         color = Color.White,
-        letterSpacing = 1.5.sp
+        letterSpacing = 1.2.sp,
+        maxLines = 1,
+        softWrap = false
       )
     }
   }

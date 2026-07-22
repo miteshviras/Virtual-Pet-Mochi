@@ -113,6 +113,7 @@ All core game logic resides within `MochiViewModel.kt`:
 
 ## 6. Phase 10 Production Polish & QA Verification
 
+- **Kid-Friendly UI Layout**: `SleekTopBar.kt` features a streamlined header with Explorer level and coin balance on top, alongside a single **Activity Hub icon (`🎒`)** that opens a clean bottom sheet containing all sub-features (Trophies 🏆, Daily Quests 📜, Codex 📚, Wardrobe 👗, Room Decor 🛋️, Shop 🛍️). `MochiPetView.kt` includes a single-line room title pill to prevent text clipping.
 - **Particle Effects**: `ParticleEffectOverlay.kt` renders canvas-based particle physics for reward collection, level ups, feeding, and achievements.
 - **Audio Polish**: Optimized `ToneGenerator` audio stream management with volume safety.
 - **Haptic Support**: Tactile feedback for key touches, purchase confirmations, and level-ups.
