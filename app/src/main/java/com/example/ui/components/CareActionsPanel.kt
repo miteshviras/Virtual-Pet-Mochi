@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.CareAction
@@ -47,7 +48,8 @@ fun CareActionsPanel(
     modifier = modifier
       .fillMaxWidth()
       .padding(horizontal = 16.dp),
-    horizontalArrangement = Arrangement.spacedBy(10.dp)
+    horizontalArrangement = Arrangement.spacedBy(10.dp),
+    verticalAlignment = Alignment.CenterVertically
   ) {
     actions.forEach { action ->
       val cooldownEnd = cooldowns[action.id] ?: 0L
@@ -76,6 +78,7 @@ private fun CareActionButton(
   Box(
     modifier = modifier
       .testTag("care_action_${action.id}")
+      .height(62.dp)
       .shadow(3.dp, RoundedCornerShape(20.dp))
       .clip(RoundedCornerShape(20.dp))
       .background(if (isCoolingDown) Color(0xFFF1F5F9) else Color.White)
@@ -88,32 +91,38 @@ private fun CareActionButton(
           onExecute()
         }
       }
-      .padding(horizontal = 12.dp, vertical = 10.dp),
+      .padding(horizontal = 10.dp, vertical = 6.dp),
     contentAlignment = Alignment.Center
   ) {
     Row(
       verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.Center
+      horizontalArrangement = Arrangement.Start,
+      modifier = Modifier.fillMaxWidth()
     ) {
       Box(
         modifier = Modifier
-          .size(38.dp)
+          .size(36.dp)
           .clip(CircleShape)
           .background(if (isCoolingDown) Color(0xFFE2E8F0) else Color(0xFFEEF2FF)),
         contentAlignment = Alignment.Center
       ) {
-        Text(text = action.icon, fontSize = 20.sp)
+        Text(text = action.icon, fontSize = 18.sp)
       }
 
       Spacer(modifier = Modifier.width(8.dp))
 
-      Column {
+      Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.weight(1f)
+      ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
           Text(
             text = action.name,
-            fontSize = 12.sp,
+            fontSize = 11.5.sp,
             fontWeight = FontWeight.Bold,
-            color = if (isCoolingDown) Color.Gray else SleekTextDark
+            color = if (isCoolingDown) Color.Gray else SleekTextDark,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
           )
 
           if (isCoolingDown) {
@@ -122,7 +131,8 @@ private fun CareActionButton(
               fontSize = 10.sp,
               fontWeight = FontWeight.Bold,
               color = Color(0xFFE11D48),
-              modifier = Modifier.padding(start = 2.dp)
+              modifier = Modifier.padding(start = 2.dp),
+              maxLines = 1
             )
           }
         }
@@ -131,11 +141,14 @@ private fun CareActionButton(
 
         Text(
           text = action.statBoostText,
-          fontSize = 10.sp,
+          fontSize = 9.5.sp,
           fontWeight = FontWeight.Medium,
-          color = if (isCoolingDown) Color.Gray else Color(0xFF6366F1)
+          color = if (isCoolingDown) Color.Gray else Color(0xFF6366F1),
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
         )
       }
     }
   }
 }
+
