@@ -137,6 +137,15 @@ fun MochiPetView(
           indication = null
         ) {
           onPetClick()
+          // Play cute pet voice!
+          com.example.util.SoundManager.playPetVoice(
+            listOf(
+              com.example.util.PetVoiceType.CHIRP,
+              com.example.util.PetVoiceType.GREETING,
+              com.example.util.PetVoiceType.PURR,
+              com.example.util.PetVoiceType.GIGGLE
+            ).random()
+          )
           // Trigger Squish Animation
           scope.launch {
             squishScaleY.animateTo(0.8f, spring())

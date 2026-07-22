@@ -659,6 +659,7 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
         hunger = (hunger + 25f).coerceAtMost(100f)
         friendship = (friendship + 5f).coerceAtMost(100f)
         com.example.util.SoundManager.playEatingSound()
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.YUMMY)
         triggerFloatingPopup("+25 Hunger 🍎", 0xFFF97316)
         triggerFloatingPopup("+5 Friendship 💕", 0xFFE11D48)
         showTemporaryNotification("Yum! Mochi loved the meal! 🍎")
@@ -667,15 +668,18 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
         hunger = (hunger + 15f).coerceAtMost(100f)
         energy = (energy + 10f).coerceAtMost(100f)
         com.example.util.SoundManager.playDrinkingSound()
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.YUMMY)
         triggerFloatingPopup("+15 Water 💧", 0xFF3B82F6)
         triggerFloatingPopup("+10 Energy ⚡", 0xFFEAB308)
         showTemporaryNotification("Gulp gulp! Refreshing water! 💧")
       }
       CareActionType.SLEEP -> {
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.YAWN)
         toggleSleep()
         return
       }
       CareActionType.WAKE -> {
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.GREETING)
         toggleSleep()
         return
       }
@@ -683,6 +687,7 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
         clean = (clean + 35f).coerceAtMost(100f)
         joy = (joy + 10f).coerceAtMost(100f)
         com.example.util.SoundManager.playBathSplashSound()
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.PURR)
         triggerFloatingPopup("+35 Cleanliness 🧼", 0xFF06B6D4)
         showTemporaryNotification("Splish splash! All clean & shiny! 🛁✨")
       }
@@ -690,6 +695,7 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
         clean = (clean + 20f).coerceAtMost(100f)
         friendship = (friendship + 10f).coerceAtMost(100f)
         com.example.util.SoundManager.playBrushSound()
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.PURR)
         triggerFloatingPopup("+20 Cleanliness 🪮", 0xFF06B6D4)
         triggerFloatingPopup("+10 Friendship 💕", 0xFFE11D48)
         showTemporaryNotification("Mochi's fur is so soft and fluffy! 🪮✨")
@@ -698,6 +704,7 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
         health = (health + 35f).coerceAtMost(100f)
         energy = (energy + 15f).coerceAtMost(100f)
         com.example.util.SoundManager.playMedicineSound()
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.PURR)
         triggerFloatingPopup("+35 Health 🧪", 0xFF10B981)
         showTemporaryNotification("Healing vitamin elixir taken! 🧪✨")
       }
@@ -705,6 +712,7 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
         friendship = (friendship + 20f).coerceAtMost(100f)
         joy = (joy + 15f).coerceAtMost(100f)
         com.example.util.SoundManager.playCuddleSound()
+        com.example.util.SoundManager.playPetVoice(com.example.util.PetVoiceType.GIGGLE)
         triggerFloatingPopup("+20 Friendship 💕", 0xFFE11D48)
         triggerFloatingPopup("+15 Joy 😊", 0xFFF59E0B)
         showTemporaryNotification("Warm cozy cuddle! Mochi loves you! 🫂💕")

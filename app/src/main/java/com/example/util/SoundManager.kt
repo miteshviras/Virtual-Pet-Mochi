@@ -1,13 +1,28 @@
 package com.example.util
 
+import android.media.AudioAttributes
+import android.media.AudioFormat
 import android.media.AudioManager
+import android.media.AudioTrack
 import android.media.ToneGenerator
 import android.util.Log
+import java.util.concurrent.Executors
+
+enum class PetVoiceType {
+  CHIRP,      // Tap / Pet
+  GREETING,   // Hello / Mo-chi!
+  GIGGLE,     // Joyful laughter / Play
+  PURR,       // Cuddle / Praise
+  YAWN,       // Bedroom / Sleepy
+  YUMMY,      // Kitchen / Feeding
+  SAD         // Low stats / Hungry
+}
 
 object SoundManager {
   private var toneGenerator: ToneGenerator? = null
   var isSoundEnabled: Boolean = true
   var isHapticsEnabled: Boolean = true
+  private val audioExecutor = Executors.newSingleThreadExecutor()
 
   init {
     try {
@@ -148,6 +163,159 @@ object SoundManager {
 
   fun playDefeatSound() {
     playTone(ToneGenerator.TONE_PROP_NACK, 300)
+  }
+
+  fun playPetVoice(type: PetVoiceType = PetVoiceType.CHIRP) {
+    if (!isSoundEnabled) return
+    audioExecutor.execute {
+      try {
+        val sampleRate = 22050
+        val numSamples: Int
+
+        when (type) {
+          PetVoiceType.CHIRP -> {
+            // Cute rising chirp ("Nya!")
+            numSamples = (sampleRate * 0.22).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val freq = 850f + (750f * Math.sin(t * Math.PI / 2).toFloat())
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = (Math.sin(phase.toDouble()) * 0.7 + Math.sin((phase * 2f).toDouble()) * 0.3)
+              val envelope = Math.sin(t * Math.PI).toFloat()
+              buffer[i] = (sample * envelope * Short.MAX_VALUE * 0.6f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+          PetVoiceType.GREETING -> {
+            // Two syllable chirp ("Mo-chi!")
+            numSamples = (sampleRate * 0.35).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val freq = if (t < 0.4f) {
+                800f + 300f * (t / 0.4f)
+              } else {
+                1200f + 400f * Math.sin((t - 0.4f) / 0.6f * Math.PI).toFloat()
+              }
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = (Math.sin(phase.toDouble()) * 0.75 + Math.sin((phase * 2f).toDouble()) * 0.25)
+              val envelope = Math.sin(t * Math.PI).toFloat()
+              buffer[i] = (sample * envelope * Short.MAX_VALUE * 0.6f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+          PetVoiceType.GIGGLE -> {
+            // Staccato 3-pulse giggle ("Hee-hee-hee!")
+            numSamples = (sampleRate * 0.32).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val pulse = (t * 3f).toInt().coerceIn(0, 2)
+              val pulseT = (t * 3f) - pulse
+              val baseFreq = 1350f + (pulse * 200f)
+              val freq = baseFreq + 150f * Math.sin(pulseT * Math.PI).toFloat()
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = Math.sin(phase.toDouble())
+              val envelope = Math.sin(pulseT * Math.PI).toFloat().coerceAtLeast(0f)
+              buffer[i] = (sample * envelope * Short.MAX_VALUE * 0.55f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+          PetVoiceType.PURR -> {
+            // Loving cute purr with warm tremolo
+            numSamples = (sampleRate * 0.4).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val tremolo = 0.7f + 0.3f * Math.sin(t * 30.0 * Math.PI).toFloat()
+              val freq = 900f + 250f * Math.sin(t * Math.PI).toFloat()
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = Math.sin(phase.toDouble())
+              val envelope = Math.sin(t * Math.PI).toFloat()
+              buffer[i] = (sample * tremolo * envelope * Short.MAX_VALUE * 0.6f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+          PetVoiceType.YAWN -> {
+            // Gentle cute yawn (descending pitch sweep)
+            numSamples = (sampleRate * 0.45).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val freq = 1200f - 550f * Math.sin(t * Math.PI / 2).toFloat()
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = Math.sin(phase.toDouble())
+              val envelope = Math.sin(t * Math.PI).toFloat()
+              buffer[i] = (sample * envelope * Short.MAX_VALUE * 0.5f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+          PetVoiceType.YUMMY -> {
+            // Cute eating voice ("Nom nom!")
+            numSamples = (sampleRate * 0.3).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val pulse = (t * 2f).toInt().coerceIn(0, 1)
+              val pulseT = (t * 2f) - pulse
+              val freq = 950f + 350f * Math.sin(pulseT * Math.PI).toFloat()
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = Math.sin(phase.toDouble())
+              val envelope = Math.sin(pulseT * Math.PI).toFloat().coerceAtLeast(0f)
+              buffer[i] = (sample * envelope * Short.MAX_VALUE * 0.6f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+          PetVoiceType.SAD -> {
+            // Soft gentle sad meow
+            numSamples = (sampleRate * 0.38).toInt()
+            val buffer = ShortArray(numSamples)
+            for (i in 0 until numSamples) {
+              val t = i.toFloat() / numSamples
+              val freq = 800f + 200f * Math.sin(t * Math.PI).toFloat() - (100f * t)
+              val phase = 2f * Math.PI.toFloat() * freq * (i.toFloat() / sampleRate)
+              val sample = Math.sin(phase.toDouble())
+              val envelope = Math.sin(t * Math.PI).toFloat()
+              buffer[i] = (sample * envelope * Short.MAX_VALUE * 0.5f).toInt().toShort()
+            }
+            playPcmBuffer(buffer, sampleRate)
+          }
+        }
+      } catch (e: Exception) {
+        Log.e("SoundManager", "Error playing pet voice", e)
+      }
+    }
+  }
+
+  private fun playPcmBuffer(buffer: ShortArray, sampleRate: Int) {
+    try {
+      val track = AudioTrack.Builder()
+        .setAudioAttributes(
+          AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        )
+        .setAudioFormat(
+          AudioFormat.Builder()
+            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+            .setSampleRate(sampleRate)
+            .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+            .build()
+        )
+        .setBufferSizeInBytes(buffer.size * 2)
+        .setTransferMode(AudioTrack.MODE_STATIC)
+        .build()
+
+      track.write(buffer, 0, buffer.size)
+      track.play()
+      Thread.sleep((buffer.size.toFloat() / sampleRate * 1000).toLong() + 30)
+      track.stop()
+      track.release()
+    } catch (e: Exception) {
+      Log.e("SoundManager", "AudioTrack playback error", e)
+    }
   }
 }
 
