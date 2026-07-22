@@ -40,56 +40,72 @@ fun SleekNeedsDashboard(
   mood: PetMoodState = PetMoodState.HAPPY,
   modifier: Modifier = Modifier
 ) {
+  // Single unified card containing mood badge and all 5 pet stats
   Column(
     modifier = modifier
       .fillMaxWidth()
       .padding(horizontal = 16.dp)
+      .shadow(4.dp, RoundedCornerShape(22.dp))
+      .clip(RoundedCornerShape(22.dp))
+      .background(Color.White)
+      .border(1.dp, Color(0xFFF1F5F9), RoundedCornerShape(22.dp))
+      .padding(horizontal = 12.dp, vertical = 10.dp),
+    horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    // Mood Status Pill Header
-    Box(
+    // Top Row: Mood Status & Friendship
+    Row(
       modifier = Modifier
-        .align(Alignment.CenterHorizontally)
-        .padding(bottom = 6.dp)
-        .clip(RoundedCornerShape(12.dp))
-        .background(Color.White.copy(alpha = 0.9f))
-        .border(1.dp, Color(0xFFE2E8F0), RoundedCornerShape(12.dp))
-        .padding(horizontal = 12.dp, vertical = 4.dp)
+        .fillMaxWidth()
+        .padding(bottom = 8.dp),
+      horizontalArrangement = Arrangement.Center,
+      verticalAlignment = Alignment.CenterVertically
     ) {
-      Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "${mood.icon} ${mood.label}", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = SleekTextDark)
-        Text(text = " • Friendship ${pet.friendship.toInt()}% 💕", fontSize = 11.sp, color = Color(0xFFE11D48), modifier = Modifier.padding(start = 6.dp))
-      }
+      Text(
+        text = "${mood.icon} ${mood.label}",
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Bold,
+        color = SleekTextDark
+      )
+      Text(
+        text = " • Friendship ${pet.friendship.toInt()}% 💕",
+        fontSize = 11.sp,
+        fontWeight = FontWeight.SemiBold,
+        color = Color(0xFFE11D48),
+        modifier = Modifier.padding(start = 6.dp)
+      )
     }
 
+    // Single Unified Row containing all 5 pet stats
     Row(
       modifier = Modifier.fillMaxWidth(),
-      horizontalArrangement = Arrangement.spacedBy(6.dp)
+      horizontalArrangement = Arrangement.SpaceEvenly,
+      verticalAlignment = Alignment.CenterVertically
     ) {
-      StatItem(
+      StatColumnItem(
         label = "Hunger",
         value = pet.hunger,
         color = StatHunger,
         modifier = Modifier.weight(1f)
       )
-      StatItem(
+      StatColumnItem(
         label = "Energy",
         value = pet.energy,
         color = StatEnergy,
         modifier = Modifier.weight(1f)
       )
-      StatItem(
+      StatColumnItem(
         label = "Joy",
         value = pet.happiness,
         color = StatJoy,
         modifier = Modifier.weight(1f)
       )
-      StatItem(
+      StatColumnItem(
         label = "Clean",
         value = pet.cleanliness,
         color = StatClean,
         modifier = Modifier.weight(1f)
       )
-      StatItem(
+      StatColumnItem(
         label = "Health",
         value = pet.health,
         color = Color(0xFF10B981),
@@ -100,7 +116,7 @@ fun SleekNeedsDashboard(
 }
 
 @Composable
-private fun StatItem(
+private fun StatColumnItem(
   label: String,
   value: Float,
   color: Color,
@@ -116,28 +132,25 @@ private fun StatItem(
   Column(
     modifier = modifier
       .testTag("stat_$label")
-      .shadow(2.dp, RoundedCornerShape(16.dp))
-      .clip(RoundedCornerShape(16.dp))
-      .background(if (isWarning) Color(0xFFFFF1F2) else Color.White)
-      .border(1.dp, if (isWarning) Color(0xFFFECDD3) else Color(0xFFF1F5F9), RoundedCornerShape(16.dp))
-      .padding(horizontal = 4.dp, vertical = 8.dp),
+      .padding(horizontal = 2.dp, vertical = 4.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Text(
       text = label,
       fontSize = 11.sp,
-      fontWeight = FontWeight.SemiBold,
-      color = if (isWarning) Color(0xFFE11D48) else SleekTextDark
+      fontWeight = FontWeight.Bold,
+      color = if (isWarning) Color(0xFFE11D48) else SleekTextDark,
+      maxLines = 1
     )
 
     Spacer(modifier = Modifier.height(4.dp))
 
     Box(
       modifier = Modifier
-        .fillMaxWidth(0.9f)
-        .height(5.dp)
+        .fillMaxWidth(0.85f)
+        .height(6.dp)
         .clip(CircleShape)
-        .background(Color(0xFFE2E8F0))
+        .background(Color(0xFFF1F5F9))
     ) {
       Box(
         modifier = Modifier
