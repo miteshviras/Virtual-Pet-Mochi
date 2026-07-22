@@ -98,10 +98,16 @@ fun MochiAppScreen(
 
   val derivedEmotion = viewModel.getDerivedEmotion()
 
-  Scaffold(
-    modifier = Modifier.fillMaxSize(),
-    containerColor = SleekBg,
-    bottomBar = {
+  if (!petState.isOnboardingCompleted) {
+    com.example.ui.onboarding.OnboardingScreen(
+      petState = petState,
+      onCompleteOnboarding = { name -> viewModel.completeOnboarding(name) }
+    )
+  } else {
+    Scaffold(
+      modifier = Modifier.fillMaxSize(),
+      containerColor = SleekBg,
+      bottomBar = {
       SleekNavBar(
         currentRoom = currentRoom,
         onRoomSelect = { room -> viewModel.changeRoom(room) }
@@ -339,3 +345,6 @@ fun MochiAppScreen(
     }
   }
 }
+}
+
+

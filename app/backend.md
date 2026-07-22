@@ -35,6 +35,7 @@ Primary key: `id` (Int, Auto-Generate = true)
 | `dailyQuestsJson` | TEXT | Serialized daily quests state |
 | `lastDailyResetDate` | TEXT | Date string for daily reset ("YYYY-MM-DD") |
 | `unlockedCollectionsJson` | TEXT | Serialized list of unlocked codex IDs |
+| `isOnboardingCompleted` | INTEGER | Flag indicating if first-launch onboarding is complete (0 or 1) |
 | `lifetimeCoinsEarned` | INTEGER | Total lifetime coins earned |
 | `lifetimeCoinsSpent` | INTEGER | Total lifetime coins spent |
 | `totalFoodsFed` | INTEGER | Lifetime foods fed |

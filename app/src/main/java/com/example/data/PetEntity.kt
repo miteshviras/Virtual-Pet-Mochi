@@ -60,6 +60,7 @@ data class PetEntity(
   val totalActivitiesPlayed: Int = 0,
   val totalMiniGameCoinsEarned: Int = 0,
   val lastVisitedRoom: String = "PLAY",
+  val isOnboardingCompleted: Boolean = false,
   val lastUpdateTime: Long = System.currentTimeMillis()
 )
 

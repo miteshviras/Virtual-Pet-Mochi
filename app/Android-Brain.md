@@ -118,3 +118,17 @@ All core game logic resides within `MochiViewModel.kt`:
 - **Haptic Support**: Tactile feedback for key touches, purchase confirmations, and level-ups.
 - **Performance & Stability**: Verified 60 FPS Compose rendering, zero memory leaks, and lightweight object reuse.
 - **Kids' App Compliance**: Fully offline, ad-free, data privacy compliant.
+
+---
+
+## 7. First Launch Onboarding Flow (`OnboardingScreen.kt`)
+
+The onboarding sequence presents a 5-step interactive introduction shown strictly on first launch when `isOnboardingCompleted == false`:
+1. **Screen 1 (Welcome)**: Displays Mochi logo, animated pet, and intro greeting with "Next" and "Skip" controls.
+2. **Screen 2 (Meet Your Pet)**: Teaches core needs (Feed 🍎, Play 🎮, Bath 🧼, Rest 🛏️) with visual need info cards.
+3. **Screen 3 (How To Play)**: Showcases feature capabilities (Room Decoration 🛋️, Dress-Up 👗, Shop 💰, Trophies 🏆).
+4. **Screen 4 (Choose Pet Name)**: Custom name input with a `🎲 Randomize Name` generator and non-blank input validation.
+5. **Screen 5 (Final Screen)**: Displays "Everything is Ready!" celebration with starter gift package (2,450 coins, unlocked snacks & outfits) and the "Start Adventure! 🚀" action button.
+
+Completing onboarding calls `viewModel.completeOnboarding(petName)` which updates `isOnboardingCompleted = true` in Room DB and seamlessly transitions into the main game.
+

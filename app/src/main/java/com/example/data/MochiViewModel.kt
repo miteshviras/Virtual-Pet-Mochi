@@ -1613,6 +1613,26 @@ class MochiViewModel(application: Application) : AndroidViewModel(application) {
     return jsonStr.split(",").toSet()
   }
 
+  fun completeOnboarding(petName: String) {
+    val cleanName = petName.trim().ifEmpty { "Mochi" }
+    val updated = _petState.value.copy(
+      name = cleanName,
+      isOnboardingCompleted = true
+    )
+    _petState.value = updated
+    viewModelScope.launch {
+      dao.updatePetStats(updated)
+    }
+  }
+
+  fun resetOnboarding() {
+    val updated = _petState.value.copy(isOnboardingCompleted = false)
+    _petState.value = updated
+    viewModelScope.launch {
+      dao.updatePetStats(updated)
+    }
+  }
+
   private fun serializeHighScores(scoresMap: Map<String, Int>): String {
     return scoresMap.entries.joinToString(";;") { "${it.key}::${it.value}" }
   }
