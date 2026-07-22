@@ -1,0 +1,587 @@
+package com.example.data
+
+object ItemDatabaseRegistry {
+
+  val masterItemList: List<MasterItem> = listOf(
+    // --- FOODS & DRINKS ---
+    MasterItem(
+      id = "item_apple",
+      internalName = "Crispy Red Apple",
+      displayName = "Crispy Red Apple",
+      description = "Freshly picked juicy red apple. Restores hunger and health.",
+      mainCategory = ItemMainCategory.FOOD,
+      subcategory = "Fruit",
+      icon = "🍎",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 15,
+      stackLimit = 99,
+      unlockLevel = 1,
+      tags = listOf("fruit", "healthy", "snack"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HUNGER, 25f),
+        ItemStatModifier(StatType.HEALTH, 5f)
+      )
+    ),
+    MasterItem(
+      id = "item_milk",
+      internalName = "Fresh Whole Milk",
+      displayName = "Fresh Whole Milk",
+      description = "Creamy milk rich in calcium. Boosts hunger and energy.",
+      mainCategory = ItemMainCategory.FOOD,
+      subcategory = "Drink",
+      icon = "🥛",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 20,
+      stackLimit = 99,
+      unlockLevel = 1,
+      tags = listOf("drink", "dairy"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HUNGER, 15f),
+        ItemStatModifier(StatType.ENERGY, 15f)
+      )
+    ),
+    MasterItem(
+      id = "item_bento",
+      internalName = "Deluxe Bento Box",
+      displayName = "Deluxe Bento Box",
+      description = "Nutritious balanced meal packed with sushi, rice, and veggies.",
+      mainCategory = ItemMainCategory.FOOD,
+      subcategory = "Meal",
+      icon = "🍱",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 60,
+      stackLimit = 50,
+      unlockLevel = 3,
+      tags = listOf("meal", "gourmet"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HUNGER, 55f),
+        ItemStatModifier(StatType.HAPPINESS, 20f)
+      )
+    ),
+    MasterItem(
+      id = "item_macaron",
+      internalName = "Rainbow Macaron Set",
+      displayName = "Rainbow Macaron Set",
+      description = "Sweet colorful macarons that bring instant happiness!",
+      mainCategory = ItemMainCategory.FOOD,
+      subcategory = "Dessert",
+      icon = "🧁",
+      rarity = ItemRarity.EPIC,
+      purchasePrice = 120,
+      stackLimit = 30,
+      unlockLevel = 5,
+      tags = listOf("sweet", "dessert"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HUNGER, 30f),
+        ItemStatModifier(StatType.HAPPINESS, 45f),
+        ItemStatModifier(StatType.FRIENDSHIP, 10f)
+      )
+    ),
+    MasterItem(
+      id = "item_smoothie",
+      internalName = "Berry Energy Smoothie",
+      displayName = "Berry Energy Smoothie",
+      description = "Refreshing blended berries packed with natural antioxidants.",
+      mainCategory = ItemMainCategory.FOOD,
+      subcategory = "Drink",
+      icon = "🧃",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 45,
+      stackLimit = 50,
+      unlockLevel = 2,
+      tags = listOf("drink", "energy"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.ENERGY, 40f),
+        ItemStatModifier(StatType.HEALTH, 10f)
+      )
+    ),
+
+    // --- MEDICINE & CARE ---
+    MasterItem(
+      id = "item_potion",
+      internalName = "Health Elixir Potion",
+      displayName = "Health Elixir Potion",
+      description = "Soothing medicinal potion that fully restores health and energy.",
+      mainCategory = ItemMainCategory.CARE,
+      subcategory = "Medicine",
+      icon = "🧪",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 50,
+      stackLimit = 50,
+      unlockLevel = 1,
+      tags = listOf("medicine", "heal"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HEALTH, 60f),
+        ItemStatModifier(StatType.ENERGY, 25f)
+      )
+    ),
+    MasterItem(
+      id = "item_soap",
+      internalName = "Lavender Bubble Soap",
+      displayName = "Lavender Bubble Soap",
+      description = "Aromatic soap creating fluffy bubbles. Cleans and relaxes Mochi.",
+      mainCategory = ItemMainCategory.CARE,
+      subcategory = "Bath",
+      icon = "🧼",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 25,
+      stackLimit = 99,
+      unlockLevel = 1,
+      tags = listOf("bath", "clean"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.CLEANLINESS, 50f),
+        ItemStatModifier(StatType.HAPPINESS, 15f)
+      )
+    ),
+    MasterItem(
+      id = "item_bandage",
+      internalName = "Magic Comfort Bandage",
+      displayName = "Magic Comfort Bandage",
+      description = "Gentle healing patch for small scrapes and fatigue.",
+      mainCategory = ItemMainCategory.CARE,
+      subcategory = "Medicine",
+      icon = "🩹",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 30,
+      stackLimit = 99,
+      unlockLevel = 1,
+      tags = listOf("firstaid", "heal"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HEALTH, 30f),
+        ItemStatModifier(StatType.FRIENDSHIP, 10f)
+      )
+    ),
+
+    // --- WEARABLE (HATS & CLOTHING & ACCESSORIES) ---
+    MasterItem(
+      id = "hat_crown",
+      internalName = "Golden Royal Crown",
+      displayName = "Golden Royal Crown",
+      description = "A glittering gold crown fit for royal Mochi royalty!",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Hat",
+      icon = "👑",
+      rarity = ItemRarity.LEGENDARY,
+      purchasePrice = 500,
+      stackLimit = 1,
+      unlockLevel = 10,
+      tags = listOf("headwear", "royalty"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.FRIENDSHIP, 25f))
+    ),
+    MasterItem(
+      id = "hat_party",
+      internalName = "Festive Party Cap",
+      displayName = "Festive Party Cap",
+      description = "Playful polka-dot cone cap for celebrating every day!",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Hat",
+      icon = "🥳",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 80,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("headwear", "party"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HAPPINESS, 10f))
+    ),
+    MasterItem(
+      id = "hat_wizard",
+      internalName = "Starry Wizard Hat",
+      displayName = "Starry Wizard Hat",
+      description = "Enchanted pointy hat brimmed with glittering stardust.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Hat",
+      icon = "🧙",
+      rarity = ItemRarity.EPIC,
+      purchasePrice = 350,
+      stackLimit = 1,
+      unlockLevel = 6,
+      tags = listOf("headwear", "magic"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.XP, 20f))
+    ),
+    MasterItem(
+      id = "hair_ribbon",
+      internalName = "Cute Silk Ribbon",
+      displayName = "Cute Silk Ribbon",
+      description = "Soft pink bow tie decoration for Mochi's ears.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Hair",
+      icon = "🎀",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 90,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("hair", "cute"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.FRIENDSHIP, 10f))
+    ),
+    MasterItem(
+      id = "hair_flower",
+      internalName = "Cherry Blossom Clip",
+      displayName = "Cherry Blossom Clip",
+      description = "Freshly bloomed cherry blossom flower for head hair decor.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Hair",
+      icon = "🌸",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 120,
+      stackLimit = 1,
+      unlockLevel = 2,
+      tags = listOf("hair", "flower"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HAPPINESS, 15f))
+    ),
+    MasterItem(
+      id = "glasses_sunglasses",
+      internalName = "Cool Shade Glasses",
+      displayName = "Cool Shade Glasses",
+      description = "Dark sleek sunglasses for maximum swagger.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Glasses",
+      icon = "🕶️",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 140,
+      stackLimit = 1,
+      unlockLevel = 2,
+      tags = listOf("glasses", "cool"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HAPPINESS, 15f))
+    ),
+    MasterItem(
+      id = "glasses_nerd",
+      internalName = "Smart Round Glasses",
+      displayName = "Smart Round Glasses",
+      description = "Classic round spectacle frames that boost focus.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Glasses",
+      icon = "👓",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 95,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("glasses", "smart"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.XP, 15f))
+    ),
+    MasterItem(
+      id = "face_mask",
+      internalName = "Cozy Protective Mask",
+      displayName = "Cozy Protective Mask",
+      description = "Cute bear motif face mask.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Face",
+      icon = "😷",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 75,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("face", "care"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HEALTH, 10f))
+    ),
+    MasterItem(
+      id = "neck_scarf",
+      internalName = "Warm Winter Scarf",
+      displayName = "Warm Winter Scarf",
+      description = "Cozy knitted neck scarf keeping Mochi warm.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Neck",
+      icon = "🧣",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 160,
+      stackLimit = 1,
+      unlockLevel = 3,
+      tags = listOf("neck", "cozy"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HEALTH, 15f))
+    ),
+    MasterItem(
+      id = "neck_bowtie",
+      internalName = "Gentleman Bowtie",
+      displayName = "Gentleman Bowtie",
+      description = "Formal dapper red neck bowtie.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Neck",
+      icon = "👔",
+      rarity = ItemRarity.EPIC,
+      purchasePrice = 220,
+      stackLimit = 1,
+      unlockLevel = 4,
+      tags = listOf("neck", "formal"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.FRIENDSHIP, 20f))
+    ),
+    MasterItem(
+      id = "shirt_tee",
+      internalName = "Pastel Striped Tee",
+      displayName = "Pastel Striped Tee",
+      description = "Soft cotton striped shirt for daily comfort.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Shirt",
+      icon = "👕",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 110,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("shirt", "casual"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.ENERGY, 10f))
+    ),
+    MasterItem(
+      id = "jacket_cape",
+      internalName = "Hero Star Cape",
+      displayName = "Hero Star Cape",
+      description = "Flowing heroic cape for adventurous pets!",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Jacket",
+      icon = "🦸",
+      rarity = ItemRarity.EPIC,
+      purchasePrice = 300,
+      stackLimit = 1,
+      unlockLevel = 5,
+      tags = listOf("jacket", "hero"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.FRIENDSHIP, 20f))
+    ),
+    MasterItem(
+      id = "pants_shorts",
+      internalName = "Denim Adventure Shorts",
+      displayName = "Denim Shorts",
+      description = "Durable mini denim shorts.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Pants",
+      icon = "🩳",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 100,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("pants", "shorts"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.ENERGY, 10f))
+    ),
+    MasterItem(
+      id = "shoes_sneakers",
+      internalName = "Speedy Kicks Sneakers",
+      displayName = "Speedy Kicks Sneakers",
+      description = "Lightweight comfortable running shoes.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Shoes",
+      icon = "👟",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 180,
+      stackLimit = 1,
+      unlockLevel = 3,
+      tags = listOf("shoes", "speed"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.ENERGY, 20f))
+    ),
+    MasterItem(
+      id = "back_wings",
+      internalName = "Angel Fairy Wings",
+      displayName = "Angel Fairy Wings",
+      description = "Magical shimmering wings attached on back.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Back",
+      icon = "🪽",
+      rarity = ItemRarity.LEGENDARY,
+      purchasePrice = 600,
+      stackLimit = 1,
+      unlockLevel = 8,
+      tags = listOf("back", "wings"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HAPPINESS, 30f))
+    ),
+    MasterItem(
+      id = "back_backpack",
+      internalName = "Explorer Pack",
+      displayName = "Explorer Pack",
+      description = "Sturdy mini backpack for carrying treats.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Back",
+      icon = "🎒",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 200,
+      stackLimit = 1,
+      unlockLevel = 2,
+      tags = listOf("back", "pack"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.XP, 15f))
+    ),
+    MasterItem(
+      id = "hand_wand",
+      internalName = "Star Magic Wand",
+      displayName = "Star Magic Wand",
+      description = "Glittering star wand for casting cheerful spells.",
+      mainCategory = ItemMainCategory.WEARABLE,
+      subcategory = "Hand",
+      icon = "🪄",
+      rarity = ItemRarity.EPIC,
+      purchasePrice = 280,
+      stackLimit = 1,
+      unlockLevel = 4,
+      tags = listOf("hand", "magic"),
+      isEquippable = true,
+      isConsumable = false,
+      statModifiers = listOf(ItemStatModifier(StatType.HAPPINESS, 25f))
+    ),
+
+    // --- DECORATION & FURNITURE ---
+    MasterItem(
+      id = "decor_lamp",
+      internalName = "Starry Night Lamp",
+      displayName = "Starry Night Lamp",
+      description = "Cozy bedroom lamp projecting warm glowing constellations.",
+      mainCategory = ItemMainCategory.DECOR,
+      subcategory = "Furniture",
+      icon = "💡",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 200,
+      stackLimit = 1,
+      unlockLevel = 3,
+      tags = listOf("lighting", "bedroom"),
+      isPlaceable = true,
+      isConsumable = false,
+      statModifiers = listOf(
+        ItemStatModifier(StatType.ENERGY, 15f)
+      )
+    ),
+    MasterItem(
+      id = "decor_vase",
+      internalName = "Blossom Flower Vase",
+      displayName = "Blossom Flower Vase",
+      description = "Fragrant fresh cherry blossoms in a ceramic vase.",
+      mainCategory = ItemMainCategory.DECOR,
+      subcategory = "Decor",
+      icon = "🏺",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 100,
+      stackLimit = 1,
+      unlockLevel = 1,
+      tags = listOf("flower", "garden"),
+      isPlaceable = true,
+      isConsumable = false,
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HAPPINESS, 10f)
+      )
+    ),
+
+    // --- TOYS & GAMES ---
+    MasterItem(
+      id = "toy_ball",
+      internalName = "Rainbow Bouncy Ball",
+      displayName = "Rainbow Bouncy Ball",
+      description = "High-bouncing rubber ball for playful exercise.",
+      mainCategory = ItemMainCategory.TOYS,
+      subcategory = "Toy",
+      icon = "⚽",
+      rarity = ItemRarity.COMMON,
+      purchasePrice = 40,
+      stackLimit = 5,
+      unlockLevel = 1,
+      tags = listOf("toy", "play"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HAPPINESS, 35f),
+        ItemStatModifier(StatType.XP, 10f)
+      )
+    ),
+    MasterItem(
+      id = "toy_teddy",
+      internalName = "Plush Cuddle Bear",
+      displayName = "Plush Cuddle Bear",
+      description = "Soft huggable teddy bear to keep Mochi cozy.",
+      mainCategory = ItemMainCategory.TOYS,
+      subcategory = "Plush",
+      icon = "🧸",
+      rarity = ItemRarity.RARE,
+      purchasePrice = 180,
+      stackLimit = 1,
+      unlockLevel = 2,
+      tags = listOf("plush", "cozy"),
+      statModifiers = listOf(
+        ItemStatModifier(StatType.HAPPINESS, 25f),
+        ItemStatModifier(StatType.FRIENDSHIP, 20f)
+      )
+    ),
+
+    // --- SPECIAL & COLLECTIBLES ---
+    MasterItem(
+      id = "col_star_gem",
+      internalName = "Cosmic Star Gem",
+      displayName = "Cosmic Star Gem",
+      description = "Rare shimmering celestial gem awarded from mini-game mastery.",
+      mainCategory = ItemMainCategory.COLLECTIBLES,
+      subcategory = "Trophy",
+      icon = "💎",
+      rarity = ItemRarity.LEGENDARY,
+      purchasePrice = 800,
+      stackLimit = 10,
+      unlockLevel = 8,
+      tags = listOf("special", "gem"),
+      isUsable = false,
+      isConsumable = false,
+      statModifiers = emptyList()
+    ),
+    MasterItem(
+      id = "col_trophy",
+      internalName = "Golden Mochi Champion Cup",
+      displayName = "Golden Mochi Cup",
+      description = "Shining trophy honoring true caretaking devotion!",
+      mainCategory = ItemMainCategory.COLLECTIBLES,
+      subcategory = "Trophy",
+      icon = "🏆",
+      rarity = ItemRarity.LEGENDARY,
+      purchasePrice = 1000,
+      stackLimit = 1,
+      unlockLevel = 12,
+      tags = listOf("trophy", "mastery"),
+      isUsable = false,
+      isConsumable = false,
+      statModifiers = emptyList()
+    )
+  )
+
+  fun getItemById(id: String): MasterItem? {
+    return masterItemList.firstOrNull { it.id == id }
+  }
+
+  fun filterAndSort(
+    category: ItemMainCategory,
+    searchQuery: String,
+    sortOption: InventorySortOption
+  ): List<MasterItem> {
+    var filtered = masterItemList.filter { item ->
+      (category == ItemMainCategory.ALL || item.mainCategory == category) &&
+          (searchQuery.isBlank() ||
+              item.displayName.contains(searchQuery, ignoreCase = true) ||
+              item.description.contains(searchQuery, ignoreCase = true) ||
+              item.tags.any { it.contains(searchQuery, ignoreCase = true) })
+    }
+
+    filtered = when (sortOption) {
+      InventorySortOption.BY_NAME -> filtered.sortedBy { it.displayName }
+      InventorySortOption.BY_RARITY -> filtered.sortedByDescending { it.rarity.ordinal }
+      InventorySortOption.BY_PRICE -> filtered.sortedBy { it.purchasePrice }
+      InventorySortOption.BY_QUANTITY -> filtered.sortedByDescending { it.count }
+    }
+
+    return filtered
+  }
+}

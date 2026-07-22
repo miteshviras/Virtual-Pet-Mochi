@@ -1,0 +1,6 @@
+{
+  "name": "Virtual Pet Mochi",
+  "description": "An offline Android virtual pet game featuring Mochi the magical blob creature, with rooms, mini-games, stats, and pet care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
